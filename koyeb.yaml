@@ -1,0 +1,16 @@
+name: mon-backend-laravel
+services:
+  - name: laravel-api
+    type: web
+    runtime: buildpack
+    github:
+      branch: main
+    build:
+      buildpack:
+        build_command: "composer install --no-dev --optimize-autoloader && php artisan config:cache && php artisan route:cache"
+    ports:
+      - port: 8000
+        protocol: http
+    env:
+      - key: APP_ENV
+        value: production
